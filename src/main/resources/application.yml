@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/resource_booking}
+    username: ${SPRING_DATASOURCE_USERNAME:resource_booking}
+    password: ${SPRING_DATASOURCE_PASSWORD:resource_booking}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-me-change-me-change-me-change-me-change-me}
+    expiration-minutes: ${JWT_EXPIRATION_MINUTES:120}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

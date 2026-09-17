@@ -1,0 +1,92 @@
+{
+  "info": {
+    "name": "Resource Booking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "token", "value": "" },
+    { "key": "resourceId", "value": "1" },
+    { "key": "reservationId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Login USER",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/auth/login",
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user\",\n  \"password\": \"user123\"\n}" }
+      }
+    },
+    {
+      "name": "Login ADMIN",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/auth/login",
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}" }
+      }
+    },
+    {
+      "name": "List Resources",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/resources?page=0&size=10&sort=price,asc"
+      }
+    },
+    {
+      "name": "Create Resource",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/resources",
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Studio\",\n  \"description\": \"Recording studio\",\n  \"price\": 85.00\n}" }
+      }
+    },
+    {
+      "name": "Create Reservation",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/reservations",
+        "body": { "mode": "raw", "raw": "{\n  \"resourceId\": {{resourceId}},\n  \"startTime\": \"2027-01-10T10:00:00\",\n  \"endTime\": \"2027-01-10T12:00:00\",\n  \"status\": \"PENDING\"\n}" }
+      }
+    },
+    {
+      "name": "List Reservations",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/reservations?status=PENDING&minPrice=10&maxPrice=200&page=0&size=10&sort=startTime,desc"
+      }
+    },
+    {
+      "name": "Update Reservation",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/reservations/{{reservationId}}",
+        "body": { "mode": "raw", "raw": "{\n  \"resourceId\": {{resourceId}},\n  \"startTime\": \"2027-01-10T13:00:00\",\n  \"endTime\": \"2027-01-10T15:00:00\",\n  \"status\": \"CONFIRMED\"\n}" }
+      }
+    },
+    {
+      "name": "Delete Reservation",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/reservations/{{reservationId}}"
+      }
+    }
+  ]
+}
