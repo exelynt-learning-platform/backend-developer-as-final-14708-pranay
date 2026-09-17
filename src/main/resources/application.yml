@@ -13,7 +13,7 @@ spring:
 
 app:
   jwt:
-    secret: ${JWT_SECRET:change-me-change-me-change-me-change-me-change-me}
+    secret: ${JWT_SECRET:pranay}
     expiration-minutes: ${JWT_EXPIRATION_MINUTES:120}
 
 springdoc:
